@@ -9,8 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * DAO dùng cho chức năng đăng nhập và quản lý Manager (Admin) Kế thừa từ
- * DBContext để dùng sẵn thuộc tính connection
+ * DAO dùng cho chức năng đăng nhập và quản lý Manager (Admin)
+ * ĐÃ ĐƯỢC CẬP NHẬT ĐỂ TƯƠNG THÍCH VỚI POSTGRESQL
  */
 public class ManagerDAO extends DBContext {
 
@@ -22,7 +22,8 @@ public class ManagerDAO extends DBContext {
      * @return đối tượng Manager nếu đúng, null nếu sai
      */
     public Manager login(String username, String password) {
-        String sql = "SELECT * FROM Managers WHERE Username = ? AND Password = ?";
+        // THAY ĐỔI: Tên bảng và cột viết thường để khớp với PostgreSQL
+        String sql = "SELECT * FROM managers WHERE username = ? AND password = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, username);
@@ -31,10 +32,11 @@ public class ManagerDAO extends DBContext {
 
             if (rs.next()) {
                 Manager m = new Manager();
-                m.setId(rs.getInt("ManagerID"));
-                m.setUsername(rs.getString("Username"));
-                m.setPassword(rs.getString("Password"));
-                m.setFullName(rs.getString("FullName"));
+                // THAY ĐỔI: Tên cột trong ResultSet cũng phải viết thường
+                m.setId(rs.getInt("managerid"));
+                m.setUsername(rs.getString("username"));
+                m.setPassword(rs.getString("password"));
+                m.setFullName(rs.getString("fullname"));
                 return m;
             }
 
@@ -48,7 +50,8 @@ public class ManagerDAO extends DBContext {
      * Kiểm tra username có tồn tại hay không
      */
     public boolean checkUsernameExist(String username) {
-        String sql = "SELECT * FROM Managers WHERE Username = ?";
+        // THAY ĐỔI: Tên bảng và cột viết thường
+        String sql = "SELECT * FROM managers WHERE username = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, username);
@@ -64,7 +67,8 @@ public class ManagerDAO extends DBContext {
      * Thêm tài khoản quản lý mới
      */
     public void addManager(Manager m) {
-        String sql = "INSERT INTO Managers (Username, Password, FullName) VALUES (?, ?, ?)";
+        // THAY ĐỔI: Tên bảng và cột viết thường
+        String sql = "INSERT INTO managers (username, password, fullname) VALUES (?, ?, ?)";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, m.getUsername());
@@ -80,7 +84,8 @@ public class ManagerDAO extends DBContext {
      * Xoá tài khoản quản lý (tùy chọn thêm cho admin)
      */
     public void deleteManager(int id) {
-        String sql = "DELETE FROM Managers WHERE ManagerID = ?";
+        // THAY ĐỔI: Tên bảng và cột viết thường
+        String sql = "DELETE FROM managers WHERE managerid = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
