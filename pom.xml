@@ -58,10 +58,7 @@
             <artifactId>jakarta.mail-api</artifactId>
             <version>2.1.2</version>
         </dependency>
-<dependency> <groupId>com.github.jsimone</groupId> <artifactId>webapp-runner</artifactId> <version>9.0.89.0</version>
 
-<scope>provided</scope> 
-</dependency>
         <!-- Jakarta Mail Implementation -->
         <dependency>
             <groupId>org.eclipse.angus</groupId>
